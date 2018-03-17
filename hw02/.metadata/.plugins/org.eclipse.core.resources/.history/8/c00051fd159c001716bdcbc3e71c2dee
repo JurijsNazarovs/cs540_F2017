@@ -1,0 +1,149 @@
+import java.util.*;
+
+public class successor {
+    public static class JugState {
+        int[] Capacity = new int[]{0,0,0};
+        private int[] Content = new int[]{0,0,0};
+        
+        // Constructors
+        public JugState(JugState copyFrom)
+        {
+            this.Capacity[0] = copyFrom.Capacity[0];
+            this.Capacity[1] = copyFrom.Capacity[1];
+            this.Capacity[2] = copyFrom.Capacity[2];
+            this.Content[0] = copyFrom.Content[0];
+            this.Content[1] = copyFrom.Content[1];
+            this.Content[2] = copyFrom.Content[2];
+        }
+        public JugState()
+        {
+        }
+        public JugState(int A,int B, int C)
+        {
+            this.Capacity[0] = A;
+            this.Capacity[1] = B;
+            this.Capacity[2] = C;
+        }
+        public JugState(int A,int B, int C, int a, int b, int c)
+        {
+            this.Capacity[0] = A;
+            this.Capacity[1] = B;
+            this.Capacity[2] = C;
+            this.Content[0] = a;
+            this.Content[1] = b;
+            this.Content[2] = c;
+        }
+ 
+        // Actions
+        public JugState empty(int ind) {
+        		JugState tmpState = new JugState(this);
+    			tmpState.Content[ind] = 0;
+    			System.out.println(ind + "-th jug - Empty");
+        		
+        		return tmpState;
+        }
+        
+        public JugState full(int ind) {
+	    		JugState tmpState = new JugState(this);
+    			tmpState.Content[ind] = tmpState.Capacity[ind];
+    			System.out.println(ind + "-th jug - Filled");
+    		
+	    		return tmpState;
+        }
+        
+        public JugState poure(int fromInd, int toInd) {
+	        	JugState tmpState = new JugState(this);
+	        	int possibleAmountToPoure = this.Capacity[toInd] - this.Content[toInd];
+	        	if (possibleAmountToPoure >= this.Content[fromInd]) {
+	        		tmpState.Content[toInd] += tmpState.Content[fromInd];
+	        		tmpState.Content[fromInd] = 0;
+	        	} else {
+	        		tmpState.Content[toInd] = tmpState.Capacity[toInd];
+	        		tmpState.Content[fromInd] -= possibleAmountToPoure;
+	        	}
+	        	
+	        	System.out.println(fromInd + "-th jug - Poure to " + toInd);
+	    		return tmpState;
+        }
+        
+        // Other functions
+        public boolean isSame(JugState a) {
+        		if (this.Content.equals(a.Content) && this.Capacity.equals(a.Capacity)) {
+        			return true;
+        		} else {
+        			return false;
+        		}
+        }
+        
+        public void printContent()
+        {
+            System.out.println(this.Content[0] + " " + this.Content[1] + " " + this.Content[2]);
+        }
+ 
+        public ArrayList<JugState> getNextStates(){
+            ArrayList<JugState> successors = new ArrayList<>();
+            
+            // Empty jugs if something is there
+            for (int i = 0; i < this.Content.length; i++) {
+            		if (this.Content[i] > 0) {
+            			successors.add(this.empty(i));
+            		}
+            }
+            
+            // Fill jugs if not full
+            for (int i = 0; i < this.Content.length; i++) {
+	            	if (this.Content[i] < this.Capacity[i] ) {
+	        			successors.add(this.full(i));
+	            	}
+            }
+           
+            // Pure from one jug to another
+            for (int toInd = 0; toInd < this.Content.length; toInd++) {
+            		for (int fromInd = 0; fromInd < this.Content.length; fromInd++) {
+	            		if (fromInd != toInd && this.Content[toInd] < this.Capacity[toInd]
+	            				&& this.Content[fromInd] > 0) {
+	            			successors.add(this.poure(fromInd, toInd));
+	            		}
+            		}
+            }
+
+            return successors;
+        }
+    }
+
+    public static void main(String[] arg) {
+    		//String[] args = new String[] {"11", "5", "2", "6", "3", "1"};
+    		String[] args = new String[] {"3", "2", "1", "3", "1", "0"};
+        if( args.length != 6 )
+        {
+            System.out.println("Usage: java successor [A] [B] [C] [a] [b] [c]");
+            return;
+        }
+
+        // parse command line arguments
+        JugState a = new JugState();
+        a.Capacity[0] = Integer.parseInt(args[0]);
+        a.Capacity[1] = Integer.parseInt(args[1]);
+        a.Capacity[2] = Integer.parseInt(args[2]);
+        a.Content[0] = Integer.parseInt(args[3]);
+        a.Content[1] = Integer.parseInt(args[4]);
+        a.Content[2] = Integer.parseInt(args[5]);
+
+        // Implement this function
+        ArrayList<JugState> asist = a.getNextStates();
+
+        // Print out generated successors
+        for(int i=0; i< asist.size(); i++)
+        {
+            asist.get(i).printContent();
+        }
+
+        JugState b = new JugState(a);
+        b.Content[0] = 2;
+        System.out.println(b.isSame(a));
+        a.printContent();
+        b.printContent();
+        return;
+    }
+}
+

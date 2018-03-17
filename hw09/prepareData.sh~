@@ -1,0 +1,22 @@
+#!/bin/bash
+
+fileInp=${1:-"data.txt"}
+fileOut=${2:-"dataOutJava.txt"}
+
+nData=0
+printf "" > "$fileOut"
+while IFS=" " read -r years days || [[ -n $years ]]; do
+  year=$(cut -d "-" -f 1 <<< "$years")
+  if [[ $year != "\"" ]]; then
+      printf "this.x.add($year); " >> "$fileOut"
+  fi
+
+  if [[ "$days" != *-* ]]; then
+      printf "this.y.add($days);\n" >> "$fileOut"
+      ((nData++))
+  fi
+done < "$fileInp"
+printf "\nthis.size = this.y.size();\n" >> "$fileOut"
+echo "number of points: $nData"
+
+

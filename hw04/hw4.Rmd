@@ -1,0 +1,92 @@
+---
+title: "Hw4"
+author: "Jurijs Nazarovs"
+date: "10/5/2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Problem 1
+## 1
+$h(B)$ - admissible $\iff (h \geq 0) \cap (h - \text{ lower bound of real H})$
+$h(B) = cost(B, G) = \frac{1}{2} \implies h(B) \in [0; \frac{1}{2}] - \text{admissible range}$
+
+## 2
+| Iter | OPEN | $f = g + h$ | $g$ | $h$| CLOSED |
+| :---: | :---:  | :-------: | :--- | :--- |:------------------------|
+| 1 | $B^{(A)}$ | 100.5 | $\frac{1}{2}$ | 100 | $A^{(\emptyset)}$|
+|   | $C_1^{(A)}$ | 1 | 1 | 0 |
+| 2 | $B^{(A)}$ | 100.5 | $\frac{1}{2}$ | 100 | $A^{(\emptyset)}$, $C_1^{(A)}$|
+|   | $C_2^{(C_1)}$ | 1.5 | 1.5 | 0 |
+| 3 | $B^{(A)}$ | 100.5 | $\frac{1}{2}$ | 100 | $A^{(\emptyset)}$, $C_1^{(A)}$, $C_2^{(C_1)}$|
+|   | $C_3^{(C_2)}$ | $\frac{7}{4}$ | $\frac{7}{4}$ | 0 |
+| 4 | $B^{(A)}$ | 100.5 | $\frac{1}{2}$ | 100 | $A^{(\emptyset)}$, $C_1^{(A)}$, $C_2^{(C_1)}$, $C_3^{(C_2)}$|
+|   | $C_4^{(C_3)}$ | $\frac{15}{8}$ | $\frac{15}{8}$ | 0 |
+| 5 | $B^{(A)}$ | 100.5 | $\frac{1}{2}$ | 100 | $A^{(\emptyset)}$, $C_1^{(A)}$, $C_2^{(C_1)}$, $C_3^{(C_2)}$, $C_4^{(C_3)}$|
+|   | $C_5^{(C_4)}$ | $\frac{31}{16}$ | $\frac{31}{16}$ | 0 |
+
+## 3
+$$lim_{i \rightarrow\infty}f(C_i) = lim_{i \rightarrow\infty}(g(C_i) + h(C_i)) = lim_{i \rightarrow\infty}(g(C_i)) = $$
+$$lim_{i \rightarrow\infty}\sum_{j=0}^i(\frac{1}{2})^j = lim_{i \rightarrow\infty}\frac{1-(\frac{1}{2})^{(i+1)}}{1-\frac{1}{2}} = 
+lim_{i \rightarrow\infty}2(1 - (\frac{1}{2})^{(i+1)}) = 2$$
+
+## 4
+The search will not find G, because on every iteration the search select the
+node with the smallest value of f = g + h. Since the single way to achive G is 
+threw the B, and f(B) = 100.5, which is greater than 2. And for every of $C_i$, $f(C_i) < 2$, the search will chose $C_i$ over B every time.  
+
+## 5
+The inadmissable range of $h(B)$ is defined as $h(B) \in (\frac{1}{2}, \infty)$.
+So, to get G eventually, we have to have 
+$$g(B) + h(B) < 2 \iff \frac{1}{2} + h(b) < 2 \iff h(b) < \frac{3}{2}.$$
+Thus, $h(b) \in (\frac{1}{2}, \frac{3}{2})$ - inadmissalbe range, which allows to get G. 
+
+## 6
+Admissability of h is sufficient but not necessary condition for A* to find a goal
+state.  
+It is sufficient based on a proof in the class.  
+It is not necessary, since I showed in previous task that inadmissable value of
+h still allows A* to find a goal state.
+
+# Problem 2
+| Iteration Number | y | z | Current Point | T | p |
+| :---: | :---: | :---: | :---: | :--- | :--- |
+| 1 | 3 | 0.102 | 2 | 1.800 | 0.574
+| 2 | 1 | 0.223 | 3 | 1.620 | 0.291
+| 3 | 1 | 0.504 | 1 | 1.458 | 1.000
+| 4 | 4 | 0.493 | 1 | 1.312 | 0.102
+| 5 | 2 | 0.312 | 1 | 1.181 | 0.429
+| 6 | 3 | 0.508 | 2 | 1.063 | 0.390
+| 7 | 4 | 0.982 | 2 | 0.957 | 0.124
+| 8 | 3 | 0.887 | 2 | 0.861 | 0.313
+
+# Problem 3
+## 1
+In total the number of states corresponds to the number of permutration of n positions,
+which is n!
+
+## 2
+We can do a swap for $n-1$ positions. Then the size of neighborhood is $n-1$.
+That is, the covered by neighborhood fraction is $\frac{n-1}{n!}$
+
+## 3
+In the data table $n = 112511$. To caclucate the $n!$ in scientific notation
+consider 
+$$log_{10}(n!) = \sum_{i = 1}^nlog_{10}(i) \implies n! = 10^{\sum_{i = 1}^n log_{10}(i)}$$
+$$\sum_{i = 1}^{112511} log_{10}(i) = 519455.01716 \implies n! = 1*10^{519455}.$$
+That is, $c = 1$, $d = 519455$.
+
+## 4
+D = 10km. Worst total distance = $(n+1)*10\text{km} = 1125120\text{km}=2.92\text{LD}=3\text{LD}$
+
+## 5
+D = $10^{-2}$ km. Best totatl distance = $(n+1)*D = 1125.12 \text{km}$
+
+## 6
+$v = 25 \text{mph} = 40.2336 \text{kmph}$.
+Time in best total distance = $\frac{1125.12}{40.2336}= 27.9\text{hrs} \approx 28\text{hrs} > 24\text{hrs}$.
+Thus, inspector is not able to finish a job in the best case during the day. 
+Thus, inspector is not able to finish a job during the day in any other case. 

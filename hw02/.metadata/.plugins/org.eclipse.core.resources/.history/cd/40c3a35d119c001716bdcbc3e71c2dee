@@ -1,0 +1,6 @@
+import successor.successor;
+
+public class Hui {
+JugState a = new JugState(2, 2, 2);
+
+}

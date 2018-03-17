@@ -1,0 +1,141 @@
+---
+title: "CS540 - HW08"
+author: "Jurijs Nazarovs"
+date: "11/19/2017"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Problem 1
+1. $p \implies (q \implies r) \equiv \neg p \vee \neg q  \vee r$
+2. $\neg \beta: \neg((p \implies q) \implies (p \implies r))$  
+2.1. $(p \implies q) \implies (p \implies r) \equiv \neg (\neg p \vee q) \vee (\neg p \vee r)$
+$\equiv (p \wedge\neg q) \vee (\neg p \vee r)$  
+2.2.  $\neg \beta: \neg(p \wedge \neg q) \wedge \neg(\neg p \vee r) \equiv$
+$(\neg p \vee q) \wedge p \wedge \neg q$
+
+3. Result:  
+3.1. $\neg p \vee \neg q  \vee r$  
+3.2. $\neg p \vee q$  
+3.3. $p$  
+3.4. $\neg q$
+
+4. Resolution:  
+4.1. Consider 3.1 and 3.2 $\implies \neg p \vee q$  
+4.2. Consider 4.1 and 3.3 $\implies r$  
+4.3. Consider 4.2 and 3.4 $\implies \emptyset$
+
+Thus, we have a negation. Thus, we prove $(p \implies q) \implies (p \implies r)$.
+
+# Problem 2
+## 1. Jump
+1. Everything that can jump, jumps higher than a building
+2. Variables: x - object in a real world.  
+   Domain: literally everything - animals, people, words, punctuation marks and etc.
+3. Predicates: canJump(x) - ability to jump [boolean],  
+   jumpsHigher(x, constant) - whether x jumps higher than 'constant' [boolean]
+4. $\forall x$ jump$(x) \implies$ jumpsHigher(x, Builidng)
+
+## 2. Politicians
+1. Among 100 politicians at least 1 is Honest and for any 2 out of 100 at least 
+   1 is Liar.
+2. Variables: x, y - politicians  
+   Domain: 100 politicians in a party
+3. Predicates: Honest(x) - [boolean], Liar(x) - [boolean]
+4. $\exists x \text{ Honest}(x) \wedge \forall x, y \text{ (Liar}(x) \vee \text{Liar}(y))$
+
+\newpage
+# Problem 3
+## 1.
+|           | Madison | Seattle | Boston | Vancouver | Winnipeg | Montreal |
+| --------- | ------- | ------- | ------ | --------- | -------- | -------- |
+| Madison   | 0       | 1,617   | 931    | 1,654     | 597      | 800      |
+| Seattle   | 1,617   | 0       | 2,486  | 121       | 1,153    | 2,283    |
+| Boston    | 931     | 2,486   | 0      | 2,501     | 1,344    | 250      |
+| Vancouver | 1,654   | 121     | 2,501  | 0         | 1,159    | 2,291    |
+| Winnipeg  | 597     | 1,153   | 1,344  | 1,159     | 0        | 1,132    |
+| Montreal  | 800     | 2,283   | 250    | 2,291     | 1,132    | 0        |
+
+
+## 2.
+For the following 2 problems:  
+, - separator for citites inside a cluster  
+; - separator for clusters  
+every cluster is written on a new line  
+complete linkage - greatest distance between classes  
+
+
+| Iteration | closest pair of clusters | distance | all clusters |
+| --------- | ------------------------ | -------- | ------------ |
+| 1 | Vancouver;  | 121 | Vancoever, Seattle; |
+|   | Seattle     |     | Madison; |
+|  |                    |     | Boston; |
+|  |                    |     | Winnipeg; |
+|  |                    |     | Montreal; |
+| 2 | Boston;   | 250   | Vancoever, Seattle; |
+|   | Montreal  |       | Madison; |
+|   |                   |     | Boston, Montreal;|
+|   |                   |     | Winnipeg; |
+| 3 | Madison;  | 597   | Vancoever, Seattle; |
+|   | Winnipeg  |       | Boston, Montreal; |
+|   |                   |     | Madison, Winnipeg; |
+| 4 | Boston,  Montreal;  | 1,344 | Vancoever, Seattle; |
+|   | Madison, Winnipeg   |     | Boston,  Montreal, Madison, Winnipeg; |
+
+\newpage
+## 3.
+| Iteration | closest pair of clusters | distance | all clusters |
+| --------- | ------------------------ | -------- | ------------ |
+| 1 | Madison;            | 931   | Madison, Boston; |
+|   | Boston              |       | Seattle; |
+|   |                     |       | Vancoever; |
+|   |                     |       | Winnipeg; |
+|   |                     |       | Montreal |
+| 2 | Montreal;           | 1,132 | Madison, Boston; |
+|   | Winnipeg            |       | Seattle; |
+|   |                     |       | Vancoever; |
+|   |                     |       | Winnipeg, Montreal |
+| 3 | Vancoever;          | 2,291 | Madison, Boston; |
+|   | Montreal, Winnipeg  |       | Seattle; |
+|   |                     |       | Vancoever, Montreal, Winnipeg |
+| 4 | Madison, Boston;    | 2,486 | Madison, Boston, Seattle; |
+|   | Seattle             |       | Vancoever, Montreal, Winnipeg |
+
+# Problem 4
+
+## 1: $c_1 = 1$, $c_2 = 10$
+|   | Iter 1 | Iter 2 |
+| - | ------ | ------ |
+| $y_1$ | 1 | 1 |
+| $y_2$ | 1 | 1 |
+| $y_3$ | 1 | 1 |
+| $y_4$ | 2 | 2 |
+| $y_5$ | 2 | 2 |
+| $y_6$ | 2 | 2 |
+| $c_1$ | 2 | 2 |
+| $c_2$ | 7 | 7 |
+| Energy | 8 + 2 = 10 | 10 |
+
+\newpage
+## 2: $c_1 = 1$, $c_2 = 2$
+|   | Iter 1 | Iter 2 | Iter 3 |
+| - | ------ | ------ | ------ |
+| $y_1$ | 1 | 1 | 1 |
+| $y_2$ | 2 | 1 | 1 |
+| $y_3$ | 2 | 2 | 2 |
+| $y_4$ | 2 | 2 | 2 |
+| $y_5$ | 2 | 2 | 2 |
+| $y_6$ | 2 | 2 | 2 |
+| $c_1$ | 0 | 1 | 1 |
+| $c_2$ | 5.4 | 6.25 | 6.25 |
+| Energy | 0 + 23.2 = 23.2 | 2 + 8.75 = 10.75 | 10.75 |
+
+## 3: Best solution
+
+The first solution is better, since it results in less energy.

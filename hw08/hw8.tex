@@ -1,0 +1,145 @@
+\documentclass{article}
+
+\usepackage[top=2in, bottom=1.5in, left=1in, right=1in]{geometry}
+\usepackage{fancyhdr} 		% page header
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{positioning}
+\usepackage{hyperref}
+
+\pagestyle{fancy} 
+\fancyhf{}
+\fancyhead[L]{CS 540}
+\fancyhead[R]{Fall 2017}
+
+\def\x{\mathbf{x}}
+\def\y{\mathbf{y}}
+\def\w{\mathbf{w}}
+\def\p{\mathbf{p}}
+
+\begin{document}
+
+\begin{center}
+{\bf \large CS 540: Introduction to Artificial Intelligence
+
+Homework Assignment \# 8
+
+\vspace{0.5cm}
+
+Assigned:  11/13 
+
+Due:  11/20 8:50am} 
+\end{center}
+
+\vspace{1cm}
+
+\begin{center}
+{\bf \Large Hand in your homework:}
+\end{center}
+
+If a homework has programming questions, please hand in the Java program.  
+If a homework has written questions, please hand in a PDF file.
+Regardless, please zip all your files into hwX.zip where X is the homework number.
+Go to UW Canvas, choose your CS540 course, choose Assignment, click on Homework X: this is where you submit your zip file. 
+
+\vspace{1cm}
+
+\begin{center}
+{\bf \Large Late Policy:}
+\end{center}
+
+All assignments are due at the beginning of class on the due date. One (1) day late, defined as a 24-hour period from the deadline (weekday or weekend), will result in 10\% of the  total points for the assignment deducted.  So, for example, if a 100-point assignment is due on a Wednesday 9:30 a.m., and it is handed in between Wednesday 9:30 a.m. and Thursday 9:30 a.m., 10 points will be deducted. Two (2) days late, 25\% off; three (3) days late, 50\% off. No homework can be turned in more than three (3) days late. Written questions and program submission have the same deadline.  
+
+Assignment grading questions must be raised with the instructor within one week after the assignment is returned.
+
+\vspace{4pt}
+
+\begin{center}
+{\bf \Large Collaboration Policy:}
+\end{center}
+
+You  are  to  complete  this  assignment  individually.  However,  you  are  encouraged  to  discuss  the  general algorithms and ideas with classmates, TAs, and instructor in order to help you answer the questions. You are also welcome to give each other examples that are not on the assignment in order to demonstrate how to solve problems. But we require you to:
+\begin{itemize}
+\item not explicitly tell each other the answers
+\item not to copy answers or code fragments from anyone or anywhere
+\item not to allow your answers to be copied
+\item not to get any code on the Web
+\end{itemize}
+
+In those cases where you work with one or more other people on the general discussion of the assignment and surrounding topics, we suggest that you 
+specifically record on the assignment the names of the people you were in discussion with.
+
+\newpage
+
+
+
+\section*{Question 1: Resolution Proof in Propositional Logic [25 points]}
+Given the knowledge base 
+$$p \implies (q \implies r)$$
+use resolution to prove the query
+$$(p \implies q) \implies (p \implies r).$$
+Be sure to show what you convert to CNF and how (do not skip steps), and how you perform each resolution step.
+
+\section*{Question 2: Translation to First Order Logic [25 points]}
+Here are two riddles.
+
+\begin{enumerate}
+\item
+Question: What jumps higher than a building?
+Answer: Everything, buildings don't jump.
+
+\item
+There is a party of 100 politicians. All of them are either honest or liars. You know two things:
+1. At least one of them is honest.
+2. If you take any two politicians, at least one of them is a liar.
+
+\end{enumerate}
+
+For each riddle separately, do the following:
+\begin{enumerate}
+\item
+Write a plain English explanation for the riddle.  This explanation should correspond to your logic statement later.  For example, the first riddle can probably be stated as 
+``Everything that is not a building jumps higher than a building,'' or 
+``Everything that can jump jumps higher than a building.'' 
+But the explanation ``Everything jumps higher than a building'' might be problematic if everything includes that building itself.
+Use your judgment to create a concise but correct statement.  
+Remove non-essential details.
+If you think the riddle is ambiguous, explain why so and which interpretation you picked.
+
+\item Define your First Order Logic (FOL) variables and their domains.
+
+\item Define your FOL predicates and functions.  Make sure you specify their values for ALL their input combinations.
+
+\item Give the FOL sentences.
+
+\end{enumerate}
+
+\section*{Question 3: Hierarchical Clustering [25 points]}
+Consider the following six major cities. In the US: Madison, Seattle, Boston; and in Canada: Vancouver, Winnipeg, Montreal.
+\begin{enumerate}
+\item 
+Create a $6 \times 6$ table with the distances between the cities.  
+Consult the website \url{https://www.distance-cities.com}.  Use the pink ``fly distance'' (the shorter distance), not the blue distance by car.  Use miles and round to the nearest mile.
+\item Use hierarchical clustering with complete linkage to produce TWO clusters by hand.  Specifically, show the following in each iteration: (1) the closest pair of clusters; (2) the distance between them as defined by complete linkage; (3) all clusters at the end of that iteration.
+\item Now repeat the above question, but with the following constraint: at no point should a US city and a Canadian city be put in the same cluster.  Equivalently, whenever the complete linkage between two clusters is due to two cities in different countries, treat the two clusters as infinity apart, regardless of what other cities are in those two clusters.
+You still need to show all steps.
+\end{enumerate}
+
+
+\section*{Question 4: K-means Clustering [25 points]}
+Given the following six items in 1D: $x_1=0, x_2=2, x_3=4, x_4=6, x_5=7, x_6=8$, perform k-means clustering to obtain $k=2$ clusters by hand.
+Specifically,
+\begin{enumerate}
+\item Start from initial cluster centers $c_1=1, c_2=10$.  Show your steps for all iterations: (1) the cluster assignments $y_1, \ldots, y_6$; (2) the updated cluster centers at the end of that iteration; (3) the energy at the end of that iteration.
+\item Repeat the above but start from initial cluster centers $c_1=1, c_2=2$.
+\item Which k-means solution is better?  Why?
+\end{enumerate}
+
+
+
+\end{document}

@@ -1,0 +1,25 @@
+---
+title: "Question 2 - State Space"
+author: "Jurijs Nazarovs"
+date: "9/19/2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#(a) Number of tiles in $(m, n, k)$ - puzzle
+The number of tiles is $mn - k$
+
+#(b) Distinct states in the state space
+First, we chose $k$ spaces from $mn$ possible places. Then, we have permutration of mn-k states to be counted as distinct states.
+
+Thus, the answer is ${mn \choose k} (mn-k)!$
+
+#(c) Graph of state space of a (2, 2, 1)-puzzle
+There are 2 group of states: 1 - we can achieve the goal state, 2 - cannot achieve the goal state. Graph is below (2nd page).
+
+Note: there are 3 pair of nodes which might look confusing. For some reasons nodes were not be able to stay in different location to avoid this awkward intersection(overlapiong) of edges.
+
+![Graph of state spaces](graphMatrixOK.pdf)

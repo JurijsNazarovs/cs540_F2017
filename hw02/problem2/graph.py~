@@ -1,0 +1,54 @@
+import numpy as np
+from itertools import permutations
+
+
+# Describe all possible states, where 0 = space
+allStates = list(permutations(range(0, 4)))
+
+
+def NextState(state):
+    return(state[1], state[3], state[0], state[2])
+
+
+# Create Adjustent matrix
+graphMatrix = np.zeros((len(allStates), len(allStates)))
+for i in range(0, len(allStates)):
+    nextState = NextState(allStates[i])
+    nextStateIndex = allStates.index(nextState)
+    graphMatrix[i, nextStateIndex] = 1
+
+
+# Create Right Labels
+
+
+# Plot
+
+import matplotlib.pyplot as plt
+import networkx as nx
+
+
+def ShowGraphWithLabels(adjacency_matrix, myLabels):
+    rows, cols = np.where(adjacency_matrix == 1)
+    edges = zip(rows.tolist(), cols.tolist())
+    gr = nx.Graph()
+    gr.add_edges_from(edges)
+    nx.draw(gr, node_size=5, labels=myLabels, with_labels=True)
+    # plt.show()
+
+
+def ShowGraph(adjacency_matrix):
+    rows, cols = np.where(adjacency_matrix == 1)
+    edges = zip(rows.tolist(), cols.tolist())
+    gr = nx.Graph()
+    gr.add_edges_from(edges)
+    nx.draw(gr, node_size=50)
+   # plt.show()
+
+
+labels = ["%s %s\n %s %s" % x for x in allStates]
+labelsD = {x: labels[x] for x in range(0, len(labels))}
+ShowGraphWithLabels(graphMatrix, labelsD)
+
+# print(type(graphMatrix))
+#G = nx.DiGraph(graphMatrix)
+# nx.draw(G)
